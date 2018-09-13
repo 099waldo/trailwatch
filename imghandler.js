@@ -41,7 +41,7 @@ document.getElementById('save-image').addEventListener('click', function () {
         alert("You have to open an image before you can save it anywhere!");
         return;
     }
-    fs.copyFile(imagefiles[currentimg], saveDir + "/" + imagefiles[currentimg].replace(/^.*[\\\/]/, ''), (err) => {// TODO: Figure out a way to seperate the path of the file from the name of the file so that the file can be saved with it's original name. 
+    fs.copyFile(imagefiles[currentimg], saveDir + "/" + imagefiles[currentimg].replace(/^.*[\\\/]/, ''), (err) => {
         if (err) throw err;
         document.getElementById("save-image").value = "Saved!";
         setTimeout(() => {
