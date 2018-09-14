@@ -8,6 +8,8 @@ var currentimg = 0;
 
 var saveDir;
 
+var minimap = document.getElementById("minimap");
+
 document.getElementById('select-file').addEventListener('click', function () {
     // console.log(dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}))
     dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
@@ -55,9 +57,63 @@ function readFile(filepath) {
     getFilesFromDir(filepath, function (err, content) {
         imagefiles = content;
     });
+    var images = [];
 
-    currentimg = 0;
-    changeImage(0);
+    setTimeout(() => {
+        for (var i = 0; i < imagefiles.length; i++) {
+            var s = false;
+            if (i == 0) s = true;
+            images.push({ path: imagefiles[i], selected: s, id: "img" + i });
+        }
+        imagefiles = images;
+        currentimg = 0;
+        minimap.innerHTML = null;
+        updateMiniMap();
+        changeImage(0);
+    }, 50);
+}
+
+function updateMiniMap() {
+    if (minimap.innerHTML != null) { // Only run when pictures are imported. 
+        for (var i = 0; i < imagefiles.length; i++) {
+            var button = document.createElement("button");
+            if (imagefiles[i].selected) {
+                button.className = "theimage";
+            }
+            else {
+                button.className = "image";
+            }
+            button.id = imagefiles[i].id;
+            button.onclick = function () {
+                makeactive(parseInt(this.id.replace(/\D/g, '')));
+            }
+            var img = document.createElement("img");
+            img.className = "minimapimg";
+            img.src = imagefiles[i].path;
+            img.draggable = false;
+            button.appendChild(img);
+            minimap.appendChild(button);
+        }
+    }
+}
+
+function makeactive(theimg) {
+    var img = document.getElementById(imagefiles[theimg].id);
+    currentimg = theimg;
+
+    console.log("makeactive");
+    resetMinimap();
+
+    // if (imagefiles[theimg].selected) {
+    //     img.className = "image";
+    //     imagefiles[theimg - 1].selected = false;
+    // }
+    // else {
+    //     img.className = "theimage";
+    //     imagefiles[theimg].selected = true;
+    // }
+    document.getElementById("img").src = imagefiles[theimg].path;
+    centerMiniMap();
 }
 
 function getExt(filename) {
@@ -123,36 +179,21 @@ function changeImage(dif) {
         currentimg = imagefiles.length - 1;
     }
 
-    setTimeout(() => {
-        document.getElementById("img").src = imagefiles[currentimg];
-    }, 100);
+    resetMinimap();
+
+    document.getElementById("img").src = imagefiles[currentimg].path;
+    centerMiniMap();
 }
 
-function deleteFile(filepath) {
-    fs.exists(filepath, function (exists) {
-        if (exists) {
-            // File exists deletings
-            fs.unlink(filepath, function (err) {
-                if (err) {
-                    alert("An error ocurred updating the file" + err.message);
-                    console.log(err);
-                    return;
-                }
-            });
-        } else {
-            alert("This file doesn't exist, cannot delete");
-        }
-    });
+function centerMiniMap() {
+    minimap.scrollLeft = document.getElementById(imagefiles[currentimg].id).offsetLeft - minimap.offsetWidth / 2;
 }
 
-function saveChanges(filepath, content) {
-    fs.writeFile(filepath, content, function (err) {
-        if (err) {
-            alert("An error ocurred updating the file" + err.message);
-            console.log(err);
-            return;
-        }
-
-        alert("The file has been succesfully saved");
-    });
+function resetMinimap() {
+    for (var i = 0; i < imagefiles.length; i++) {
+        imagefiles[i].selected = false;
+        document.getElementById(imagefiles[i].id).className = "image";
+    }
+    imagefiles[currentimg].selected = true;
+    document.getElementById(imagefiles[currentimg].id).className = "theimage";
 }

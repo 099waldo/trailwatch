@@ -5,6 +5,7 @@
     <title>Our Code World</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body id="body">
@@ -14,10 +15,13 @@
             <input type="button" value="Choose a file" id="select-file" />
             <br>
             <hr>
-            <img id="img" src="" width="1024px" height="768px">
-            <hr>
             <input type="button" value="Save" id="save-image" />
-            <input type="button" value="Choose Save Folder" id="save-folder" />
+            <input type="button" value="Choose Save Folder" id="save-folder" /><br><br>
+            <div class="displaydiv">
+                <img id="img" class="displayimg" src="">
+            </div>
+            <hr>
+            <div class="minimap" id="minimap"></div>
         </div>
     </div>
     <script src="imghandler.js"></script>
