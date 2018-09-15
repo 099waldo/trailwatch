@@ -6,7 +6,7 @@ var fs = require('fs');
 var imagefiles = [];
 var currentimg = 0;
 
-var saveDir;
+var saveDir = "";
 
 var minimap = document.getElementById("minimap");
 
@@ -43,7 +43,7 @@ document.getElementById('save-image').addEventListener('click', function () {
         alert("You have to open an image before you can save it anywhere!");
         return;
     }
-    fs.copyFile(imagefiles[currentimg], saveDir + "/" + imagefiles[currentimg].replace(/^.*[\\\/]/, ''), (err) => {
+    fs.copyFile(imagefiles[currentimg].path, saveDir + "/" + imagefiles[currentimg].path.replace(/^.*[\\\/]/, ''), (err) => {
         if (err) throw err;
         document.getElementById("save-image").value = "Saved!";
         setTimeout(() => {
@@ -101,7 +101,6 @@ function makeactive(theimg) {
     var img = document.getElementById(imagefiles[theimg].id);
     currentimg = theimg;
 
-    console.log("makeactive");
     resetMinimap();
 
     // if (imagefiles[theimg].selected) {
@@ -186,7 +185,7 @@ function changeImage(dif) {
 }
 
 function centerMiniMap() {
-    minimap.scrollLeft = document.getElementById(imagefiles[currentimg].id).offsetLeft - minimap.offsetWidth / 2;
+    minimap.scrollLeft = (document.getElementById(imagefiles[currentimg].id).offsetLeft - minimap.offsetWidth / 2) + document.getElementById(imagefiles[currentimg].id).offsetWidth / 2;
 }
 
 function resetMinimap() {
