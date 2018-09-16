@@ -1,9 +1,13 @@
 html, body {
-    overflow: hidden;
+    overflow-y: visible;
+}
+
+.select-div {
+    height: 10vh;
 }
 
 .minimap {
-    height: 100px;
+    height: 15vh;
     border: solid 2px black;
     overflow: auto;
     white-space: nowrap;
@@ -22,7 +26,7 @@ html, body {
 }
 
 .displayimg {
-    height: 100%;
+    height: 70vh;
 }
 
 .displaydiv {
