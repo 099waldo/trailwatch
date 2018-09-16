@@ -61,6 +61,19 @@ setInterval(function () {
     if (allowSlowLoading) slowLoading();
 }, 100);
 
+window.onresize = function (event) {
+    var n = document.createTextNode(' ');
+    var disp = minimap.style.display;  // don't worry about previous display style
+
+    minimap.appendChild(n);
+    minimap.style.display = 'none';
+
+    setTimeout(function () {
+        minimap.style.display = disp;
+        n.parentNode.removeChild(n);
+    }, 20); // you can play with this timeout to make it as short as possible
+};
+
 function readFile(filepath) {
     getFilesFromDir(filepath, function (err, content) {
         imagefiles = content;
@@ -189,10 +202,10 @@ function getFilesFromDir(filepath, callback) {
 document.getElementById("body").onkeydown = function (e) {
     if (!e) e = window.event;
     var keyCode = e.keyCode || e.which;
-    if (keyCode == 39) {
+    if (keyCode == 39 && imagefiles[0] != null) {
         changeImage(1);
     }
-    if (keyCode == 37) {
+    if (keyCode == 37 && imagefiles[0] != null) {
         changeImage(-1);
     }
 }

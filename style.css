@@ -2,6 +2,11 @@ html, body {
     overflow-y: visible;
 }
 
+body {
+    background-image: url("background.JPG");
+    background-size: cover;
+}
+
 .select-div {
     height: 10vh;
 }
@@ -11,6 +16,9 @@ html, body {
     border: solid 2px black;
     overflow: auto;
     white-space: nowrap;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .minimapimg {
@@ -42,4 +50,34 @@ button {
     cursor: pointer;
     outline: inherit;
     height: 90%;
+}
+
+input[type="button"].savebutton {
+    background-color:  #283593;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 0.5% 1%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 100%;
+}
+
+input[type="button"].button {
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 0.5% 1%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 100%;
+}
+
+input[type="button"].button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+input[type="button"].button:active {
+    background: rgba(0, 0, 0, 0.445);
 }
