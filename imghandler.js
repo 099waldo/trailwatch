@@ -9,6 +9,9 @@ var currentimg = 0;
 var saveDir = "";
 
 var minimap = document.getElementById("minimap");
+var minimapEl;
+
+var allowSlowLoading = false;
 
 document.getElementById('select-file').addEventListener('click', function () {
     // console.log(dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}))
@@ -17,6 +20,8 @@ document.getElementById('select-file').addEventListener('click', function () {
             console.log("No file selected");
         } else {
             document.getElementById("actual-file").value = fileNames[0];
+            allowSlowLoading = false;
+            minimapEl = null;
             readFile(fileNames[0]);
         }
     });
@@ -52,6 +57,9 @@ document.getElementById('save-image').addEventListener('click', function () {
     });
 }, false);
 
+setInterval(function () {
+    if (allowSlowLoading) slowLoading();
+}, 100);
 
 function readFile(filepath) {
     getFilesFromDir(filepath, function (err, content) {
@@ -70,6 +78,10 @@ function readFile(filepath) {
         minimap.innerHTML = null;
         updateMiniMap();
         changeImage(0);
+        allowSlowLoading = true;
+        setTimeout(() => {
+            slowLoading();
+        }, 500);
     }, 50);
 }
 
@@ -89,11 +101,28 @@ function updateMiniMap() {
             }
             var img = document.createElement("img");
             img.className = "minimapimg";
-            img.src = imagefiles[i].path;
+            img.src = "http://spacergif.org/spacer.gif";
+            img.setAttribute("data-src", imagefiles[i].path);
+            //img.src = imagefiles[i].path;
             img.draggable = false;
             button.appendChild(img);
             minimap.appendChild(button);
         }
+    }
+}
+
+function slowLoading() {
+    if (minimapEl == null) {
+        var minimapimgs = [];
+        for (let i = 0; i < imagefiles.length; i++) {
+            minimapimgs.push(document.getElementById(imagefiles[i].id));
+        }
+        minimapEl = minimapimgs;
+    }
+    // console.log(minimapimgs);
+    for (var i = 0; i < minimapEl.length; i++) {
+        // console.log(i + " " + minimapimgs[i].dataset.src);
+        if (isInViewport(minimapEl[i])) minimapEl[i].children[0].src = minimapEl[i].children[0].getAttribute("data-src");
     }
 }
 
@@ -195,4 +224,10 @@ function resetMinimap() {
     }
     imagefiles[currentimg].selected = true;
     document.getElementById(imagefiles[currentimg].id).className = "theimage";
+}
+
+function isInViewport(el) {
+    var rect = el.getBoundingClientRect();
+
+    return (rect.right <= document.documentElement.clientWidth) && (rect.right > 0);
 }
