@@ -40,7 +40,7 @@ document.getElementById('save-folder').addEventListener('click', function () {
 }, false);
 
 document.getElementById('save-image').addEventListener('click', function () {
-    if (saveDir == null) {
+    if (saveDir == "") {
         alert("Please select a folder to save the files to first!");
         return;
     };
