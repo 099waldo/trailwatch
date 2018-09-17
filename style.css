@@ -8,11 +8,11 @@ body {
 }
 
 .select-div {
-    height: 10vh;
+    height: 11vh;
 }
 
 .minimap {
-    height: 15vh;
+    height: 14vh;
     border: solid 2px black;
     overflow: auto;
     white-space: nowrap;
