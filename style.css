@@ -4,21 +4,26 @@ html, body {
 
 body {
     background-image: url("background.JPG");
-    background-size: cover;
+    background-size: auto;
 }
 
 .select-div {
-    height: 12vh;
+    height: 6vh;
 }
 
 .minimap {
-    height: 13vh;
+    height: 14vh;
     border: solid 2px black;
     overflow: auto;
     white-space: nowrap;
     width: 98%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
+}
+
+.displayimg {
+    height: 70vh;
 }
 
 .minimapimg {
@@ -31,10 +36,6 @@ body {
 
 .image {
     border: solid 2px transparent;
-}
-
-.displayimg {
-    height: 70vh;
 }
 
 .displaydiv {
