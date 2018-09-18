@@ -1,25 +1,28 @@
 {
-    "name": "electron-quick-start",
+    "name": "trail.watch",
     "version": "1.0.0",
-    "description": "A minimal Electron application",
+    "description": "A program to view image files on and SD card",
     "main": "main.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder"
     },
-    "repository": "https://github.com/electron/electron-quick-start",
     "keywords": [
-        "Electron",
-        "quick",
-        "start",
-        "tutorial",
-        "demo"
+        "Trail Cam",
+        "Card reader"
     ],
-    "author": "GitHub",
-    "license": "CC0-1.0",
     "devDependencies": {
-        "electron": "^2.0.0"
+        "electron": "^2.0.0",
+        "electron-builder": "^20.28.4"
     },
     "dependencies": {
         "npm": "^6.4.1"
+    },
+    "build": {
+        "appId": "trail.watch",
+        "mac": {
+            "category": "trail.watch.utility.app"
+        }
     }
 }
