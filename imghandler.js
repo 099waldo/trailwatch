@@ -13,8 +13,10 @@ var minimapEl;
 
 var allowSlowLoading = false;
 
+
+// Button onClick functions. 
+
 document.getElementById('select-file').addEventListener('click', function () {
-    // console.log(dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}))
     dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
         if (fileNames === undefined) {
             console.log("No file selected");
@@ -28,12 +30,10 @@ document.getElementById('select-file').addEventListener('click', function () {
 }, false);
 
 document.getElementById('save-folder').addEventListener('click', function () {
-    // console.log(dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}))
     dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
         if (fileNames === undefined) {
             console.log("No file selected");
         } else {
-            // document.getElementById("actual-file").value = fileNames[0];
             saveDir = fileNames[0];
         }
     });
@@ -57,9 +57,13 @@ document.getElementById('save-image').addEventListener('click', function () {
     });
 }, false);
 
+// If pictures have already been imported, run the slowLoading function for the minimap images. 
+
 setInterval(function () {
     if (allowSlowLoading) slowLoading();
 }, 100);
+
+// Refresh the minimap display when the window is resized. Fixes minimap display issues. 
 
 window.onresize = function (event) {
     var n = document.createTextNode(' ');
@@ -73,6 +77,8 @@ window.onresize = function (event) {
         n.parentNode.removeChild(n);
     }, 20); // you can play with this timeout to make it as short as possible
 };
+
+// Imports all of the image files in the selected directory and subdirectories. 
 
 function readFile(filepath) {
     getFilesFromDir(filepath, function (err, content) {
@@ -98,6 +104,8 @@ function readFile(filepath) {
     }, 50);
 }
 
+// If the minimap doesn't have images on it yet, put images in it. 
+
 function updateMiniMap() {
     if (minimap.innerHTML != null) { // Only run when pictures are imported. 
         for (var i = 0; i < imagefiles.length; i++) {
@@ -115,14 +123,16 @@ function updateMiniMap() {
             var img = document.createElement("img");
             img.className = "minimapimg";
             img.src = "http://spacergif.org/spacer.gif";
-            img.setAttribute("data-src", imagefiles[i].path);
             //img.src = imagefiles[i].path;
+            img.setAttribute("data-src", imagefiles[i].path); // Use this instead to that we can only load the images when they are visable on the page. 
             img.draggable = false;
             button.appendChild(img);
             minimap.appendChild(button);
         }
     }
 }
+
+// Makes it so images in the minimap don't load all at once. Could be extended to unload images that aren't being displayed if there are issues with the program being slow. 
 
 function slowLoading() {
     if (minimapEl == null) {
@@ -132,12 +142,12 @@ function slowLoading() {
         }
         minimapEl = minimapimgs;
     }
-    // console.log(minimapimgs);
     for (var i = 0; i < minimapEl.length; i++) {
-        // console.log(i + " " + minimapimgs[i].dataset.src);
         if (isInViewport(minimapEl[i])) minimapEl[i].children[0].src = minimapEl[i].children[0].getAttribute("data-src");
     }
 }
+
+// Make the selected image in the minimap look like it is selected. 
 
 function makeactive(theimg) {
     var img = document.getElementById(imagefiles[theimg].id);
@@ -145,26 +155,24 @@ function makeactive(theimg) {
 
     resetMinimap();
 
-    // if (imagefiles[theimg].selected) {
-    //     img.className = "image";
-    //     imagefiles[theimg - 1].selected = false;
-    // }
-    // else {
-    //     img.className = "theimage";
-    //     imagefiles[theimg].selected = true;
-    // }
     document.getElementById("img").src = imagefiles[theimg].path;
     centerMiniMap();
 }
+
+// Get the extension of the file. 
 
 function getExt(filename) {
     return filename.split('.').pop();
 }
 
+// Returns true if the file is a directory. 
+
 function isDir(filename) {
     var stats = fs.statSync(filename);
     return stats.isDirectory();
 }
+
+// Returns all of the image files in the selected directory and subdirectories. 
 
 function getFilesFromDir(filepath, callback) {
     var result = null;
@@ -199,6 +207,8 @@ function getFilesFromDir(filepath, callback) {
     });
 }
 
+// Makes the arrow keys scroll through the images. 
+
 document.getElementById("body").onkeydown = function (e) {
     if (!e) e = window.event;
     var keyCode = e.keyCode || e.which;
@@ -209,6 +219,8 @@ document.getElementById("body").onkeydown = function (e) {
         changeImage(-1);
     }
 }
+
+// Changes the current image by the difference from the current image. Make dif = 0 if you don't want to change the current image. 
 
 function changeImage(dif) {
     currentimg += dif;
@@ -226,9 +238,13 @@ function changeImage(dif) {
     centerMiniMap();
 }
 
+// Center the selected image in the minimap. 
+
 function centerMiniMap() {
     minimap.scrollLeft = (document.getElementById(imagefiles[currentimg].id).offsetLeft - minimap.offsetWidth / 2) + document.getElementById(imagefiles[currentimg].id).offsetWidth / 2;
 }
+
+// Reset the selected image in the minimap. 
 
 function resetMinimap() {
     for (var i = 0; i < imagefiles.length; i++) {
@@ -238,6 +254,8 @@ function resetMinimap() {
     imagefiles[currentimg].selected = true;
     document.getElementById(imagefiles[currentimg].id).className = "theimage";
 }
+
+// Check if the DOM element is in the viewport. 
 
 function isInViewport(el) {
     var rect = el.getBoundingClientRect();
