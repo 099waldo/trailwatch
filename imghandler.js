@@ -16,8 +16,8 @@ var allowSlowLoading = false;
 
 // Button onClick functions. 
 
-document.getElementById('select-file').addEventListener('click', function() {
-    dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function(fileNames) {
+document.getElementById('select-file').addEventListener('click', function () {
+    dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
         if (fileNames === undefined) {
             console.log("No file selected");
         } else {
@@ -29,8 +29,8 @@ document.getElementById('select-file').addEventListener('click', function() {
     });
 }, false);
 
-document.getElementById('save-folder').addEventListener('click', function() {
-    dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function(fileNames) {
+document.getElementById('save-folder').addEventListener('click', function () {
+    dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
         if (fileNames === undefined) {
             console.log("No file selected");
         } else {
@@ -39,7 +39,7 @@ document.getElementById('save-folder').addEventListener('click', function() {
     });
 }, false);
 
-document.getElementById('save-image').addEventListener('click', function() {
+document.getElementById('save-image').addEventListener('click', function () {
     if (saveDir == "") {
         alert("Please select a folder to save the files to first!");
         return;
@@ -59,20 +59,20 @@ document.getElementById('save-image').addEventListener('click', function() {
 
 // If pictures have already been imported, run the slowLoading function for the minimap images. 
 
-setInterval(function() {
+setInterval(function () {
     if (allowSlowLoading) slowLoading();
 }, 100);
 
 // Refresh the minimap display when the window is resized. Fixes minimap display issues. 
 
-window.onresize = function(event) {
+window.onresize = function (event) {
     var n = document.createTextNode(' ');
     var disp = minimap.style.display;  // don't worry about previous display style
 
     minimap.appendChild(n);
     minimap.style.display = 'none';
 
-    setTimeout(function() {
+    setTimeout(function () {
         minimap.style.display = disp;
         n.parentNode.removeChild(n);
     }, 20); // you can play with this timeout to make it as short as possible
@@ -81,7 +81,7 @@ window.onresize = function(event) {
 // Imports all of the image files in the selected directory and subdirectories then displays the minimap.
 
 function readFile(filepath) {
-    getFilesFromDir(filepath, function(err, content) {
+    getFilesFromDir(filepath, function (err, content) {
         imagefiles = content;
     });
     var images = [];
@@ -110,7 +110,7 @@ function updateMiniMap() {
                 button.className = "image";
             }
             button.id = imagefiles[i].id;
-            button.onclick = function() {
+            button.onclick = function () {
                 makeactive(parseInt(this.id.replace(/\D/g, '')));
             }
             var img = document.createElement("img");
@@ -177,7 +177,7 @@ function getFilesFromDir(filepath, callback) {
                 filesindir.push(filepath + "/" + path); // If they aren't a directory add them to the list. 
             }
             else { // If it is a directory add all of the files that are in that directory. 
-                getFilesFromDir(filepath + "/" + path, function(err, content) {
+                getFilesFromDir(filepath + "/" + path, function (err, content) {
                     for (var u = 0; u < content.length; u++) { // Add all of the files from that directory. 
                         filesindir.push(content[u]);
                     }
@@ -202,7 +202,7 @@ function getFilesFromDir(filepath, callback) {
 
 // Makes the arrow keys scroll through the images. 
 
-document.getElementById("body").onkeydown = function(e) {
+document.getElementById("body").onkeydown = function (e) {
     if (!e) e = window.event;
     var keyCode = e.keyCode || e.which;
     if (keyCode == 39 && imagefiles[0] != null) {
@@ -258,10 +258,10 @@ function isInViewport(el) {
 
 // Get the date of a image file.
 
-async function getDate(path) {
-    let promise = new Promise((resolve, reject) => fs.stat(path, function(err, stats) {
+async function getDate(path, thei) {
+    let promise = new Promise((resolve, reject) => fs.stat(path, function (err, stats) {
         var mtime = new Date(stats.mtime);
-        return resolve(mtime);
+        return resolve({ d: mtime, i: thei });
     }));
 
     let result = await promise;
@@ -270,20 +270,21 @@ async function getDate(path) {
 
 async function oi() {
     for (var i = 0; i < imagefiles.length; i++) {
-        var m = getDate(imagefiles[i].path);
-        m.then(value => { // TODO: Change this so that it is not based off of whichever image date gets returned first. 
-            for (var i = 0; i < imagefiles.length; i++) {
-                if (imagefiles[i].d == undefined) {
-                    imagefiles[i].d = value
-                    break;
-                }
-            }
+        var m = getDate(imagefiles[i].path, i);
+        m.then(value => {
+            // for (var i = 0; i < imagefiles.length; i++) {
+            //     if (imagefiles[i].d == undefined) {
+            //         imagefiles[i].d = value
+            //         break;
+            //     }
+            // }
+            imagefiles[value.i].d = value.d
         });
     }
 
     setTimeout(() => {
         // Sort imagefiles. 
-        imagefiles.sort(function(a, b) { return new Date(a.d) - new Date(b.d); });
+        imagefiles.sort(function (a, b) { return new Date(a.d) - new Date(b.d); });
 
         // Reset ids
         for (var i = 0; i < imagefiles.length; i++) {
