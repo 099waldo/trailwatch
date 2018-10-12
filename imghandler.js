@@ -93,7 +93,7 @@ function readFile(filepath) {
             images.push({ path: imagefiles[i], selected: s, id: "img" + i });
         }
         imagefiles = images;
-        oi();
+        organizeImages();
     }, 50);
 }
 
@@ -268,7 +268,7 @@ async function getDate(path, thei) {
     return result;
 }
 
-async function oi() {
+async function organizeImages() {
     for (var i = 0; i < imagefiles.length; i++) {
         var m = getDate(imagefiles[i].path, i);
         m.then(value => {
