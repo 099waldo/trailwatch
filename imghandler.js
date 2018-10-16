@@ -16,6 +16,7 @@ var allowSlowLoading = false;
 
 // Button onClick functions. 
 
+// Select SD Card Button
 document.getElementById('select-file').addEventListener('click', function () {
     dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
         if (fileNames === undefined) {
@@ -29,6 +30,7 @@ document.getElementById('select-file').addEventListener('click', function () {
     });
 }, false);
 
+// Save folder button
 document.getElementById('save-folder').addEventListener('click', function () {
     dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
         if (fileNames === undefined) {
@@ -39,6 +41,7 @@ document.getElementById('save-folder').addEventListener('click', function () {
     });
 }, false);
 
+// Save Image Button
 document.getElementById('save-image').addEventListener('click', function () {
     if (saveDir == "") {
         alert("Please select a folder to save the files to first!");
