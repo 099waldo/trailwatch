@@ -118,7 +118,7 @@ function updateMiniMap() {
             }
             var img = document.createElement("img");
             img.className = "minimapimg";
-            img.src = "http://spacergif.org/spacer.gif";
+            img.src = "placeholder.png";
             //img.src = imagefiles[i].path;
             img.setAttribute("data-src", imagefiles[i].path); // Use this instead to that we can only load the images when they are visable on the page. 
             img.draggable = false;
