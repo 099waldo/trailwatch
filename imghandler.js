@@ -26,6 +26,7 @@ document.getElementById('select-file').addEventListener('click', function () {
             allowSlowLoading = false;
             minimapEl = null;
             readFile(fileNames[0]);
+            document.getElementById("delete-button").hidden = false;
         }
     });
 }, false);
@@ -58,6 +59,14 @@ document.getElementById('save-image').addEventListener('click', function () {
             document.getElementById("save-image").value = "Save";
         }, 1000);
     });
+}, false);
+
+// Delete All Images Button
+document.getElementById('delete-button').addEventListener('click', function () {
+    var t = confirm("Are you sure you want to delete the pictures from the SD card?");
+    if (t) {
+        deleteImages();
+    }
 }, false);
 
 // If pictures have already been imported, run the slowLoading function for the minimap images. 
@@ -100,9 +109,27 @@ function readFile(filepath) {
     }, 50);
 }
 
+function deleteImages() {
+    for (var i = 0; i < imagefiles.length; i++) {
+        // Assuming that the path is a regular file.
+        fs.unlink(imagefiles[i].path, (err) => {
+            if (err) throw err;
+            console.log('image was deleted');
+        });
+    }
+    imagefiles = null;
+    currentimg = 0;
+    allowSlowLoading = false;
+    minimap.innerHTML = null;
+    document.getElementById("img").src = "placeholder.png";
+    document.getElementById("delete-button").hidden = true;
+    document.getElementById("actual-file").value = "Please select a file";
+    alert("All of the images have been successfully deleted!");
+}
+
 // If the minimap doesn't have images on it yet, put images in it. 
 
-function updateMiniMap() {
+function updateMiniMap() { // Will do nothing if there is no images already in the minimap.
     if (minimap.innerHTML != null) { // Only run when pictures are imported. 
         for (var i = 0; i < imagefiles.length; i++) {
             var button = document.createElement("button");
@@ -247,8 +274,10 @@ function resetMinimap() {
         imagefiles[i].selected = false;
         document.getElementById(imagefiles[i].id).className = "image";
     }
-    imagefiles[currentimg].selected = true;
-    document.getElementById(imagefiles[currentimg].id).className = "theimage";
+    if (imagefiles != null) {
+        imagefiles[currentimg].selected = true;
+        document.getElementById(imagefiles[currentimg].id).className = "theimage";
+    }
 }
 
 // Check if the DOM element is in the viewport. 

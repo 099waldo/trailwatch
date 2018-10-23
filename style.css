@@ -64,6 +64,17 @@ input[type="button"].savebutton {
     font-size: 100%;
 }
 
+input[type="button"].deletebutton {
+    background-color:  #932828;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 0.5% 1%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 100%;
+}
+
 input[type="button"].button {
     background-color: transparent;
     border: none;
