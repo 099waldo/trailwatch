@@ -2,6 +2,7 @@ var app = require('electron').remote;
 var dialog = app.dialog;
 
 var fs = require('fs');
+var fspath = require('path');
 
 var imagefiles = [];
 var currentimg = 0;
@@ -199,19 +200,39 @@ function isDir(filename) {
 
 function getFilesFromDir(filepath, callback) {
     var result = null;
-    fs.readdir(filepath, (err, dir) => {
-        var filesindir = [];
-        var morefiles = undefined;
-        for (var i = 0, path; path = dir[i]; i++) { // Get all of the files in the directory. 
-            if (!isDir(filepath + "/" + path)) {
-                filesindir.push(filepath + "/" + path); // If they aren't a directory add them to the list. 
-            }
-            else { // If it is a directory add all of the files that are in that directory. 
-                getFilesFromDir(filepath + "/" + path, function (err, content) {
-                    for (var u = 0; u < content.length; u++) { // Add all of the files from that directory. 
-                        filesindir.push(content[u]);
+    var walk = function (dir, done) { // TODO: Change this function name to something else.
+        var results = [];
+        fs.readdir(dir, function (err, list) {
+            if (err) return done(err);
+            var pending = list.length;
+            if (!pending) return done(null, results);
+            list.forEach(function (file) {
+                file = fspath.resolve(dir, file);
+                fs.stat(file, function (err, stat) {
+                    if (stat && stat.isDirectory()) {
+                        walk(file, function (err, res) {
+                            results = results.concat(res);
+                            if (!--pending) done(null, results);
+                        });
+                    } else {
+                        results.push(file);
+                        if (!--pending) done(null, results);
                     }
                 });
+            });
+        });
+    };
+    walk(filepath, function (err, results) {
+        if (err) throw err;
+        console.log(results);
+        var filesindir = [];
+        var morefiles = undefined;
+        for (var i = 0, path; path = results[i]; i++) { // Get all of the files in the directory.
+            // console.log(path);
+            // var fullpath = fspath.join(path, fileName[i]);
+            // console.log(fullpath);
+            if (!isDir(path)) {
+                filesindir.push(path); // If they aren't a directory add them to the list. 
             }
         }
 
@@ -227,7 +248,7 @@ function getFilesFromDir(filepath, callback) {
 
         result = filesindir;
         callback(null, result);
-    });
+    })
 }
 
 // Makes the arrow keys scroll through the images. 
