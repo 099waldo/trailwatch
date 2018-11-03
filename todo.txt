@@ -1,6 +1,5 @@
 TODO:
 
-Add the license agreement on install (Add real details first!).
 Add a extra warning message when you press the delete button.
 Add a prompt to leave a review (or feedback)(in the form of link to website).
 Add left and right arrow buttons to scroll through the pictures.
@@ -15,3 +14,4 @@ Find maganizes or youtube channels or something to review it.
 Figure out what price to sell it at.
 Decide how many installs each user can have or if there should even be a limit.
 Decide on a release date.
+Add real details to the license agreement.

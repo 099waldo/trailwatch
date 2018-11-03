@@ -14,79 +14,82 @@ var minimapEl;
 
 var allowSlowLoading = false;
 
+var agreed = false;
 
 const { ipcRenderer } = require('electron');
 
 if (fs.existsSync("agreeToLicense")) {
     // Do something
     console.log("it exists");
+    agreed = true;
 }
-else{
+else {
     console.log("It doens't exist");
     // Open licence agreement window.
 
     ipcRenderer.send('openLicenseWindow', "hi world");
-    fs.writeFile("agreeToLicense", "Agreed", function (err) {
-        if (err) {
-            return console.log(err);
-        }
-
-        console.log("The file was saved!");
-    }); 
 }
 
 // Button onClick functions. 
 
 // Select SD Card Button
 document.getElementById('select-file').addEventListener('click', function () {
-    dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
-        if (fileNames === undefined) {
-            console.log("No file selected");
-        } else {
-            document.getElementById("actual-file").value = fileNames[0];
-            allowSlowLoading = false;
-            minimapEl = null;
-            readFile(fileNames[0]);
-            document.getElementById("delete-button").hidden = false;
-        }
-    });
+    if (agreed) {
+        dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
+            if (fileNames === undefined) {
+                console.log("No file selected");
+            } else {
+                document.getElementById("actual-file").value = fileNames[0];
+                allowSlowLoading = false;
+                minimapEl = null;
+                readFile(fileNames[0]);
+                document.getElementById("delete-button").hidden = false;
+            }
+        });
+    }
 }, false);
 
 // Save folder button
 document.getElementById('save-folder').addEventListener('click', function () {
-    dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
-        if (fileNames === undefined) {
-            console.log("No file selected");
-        } else {
-            saveDir = fileNames[0];
-        }
-    });
+    if (agreed) {
+        dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
+            if (fileNames === undefined) {
+                console.log("No file selected");
+            } else {
+                saveDir = fileNames[0];
+            }
+        });
+    }
 }, false);
 
 // Save Image Button
 document.getElementById('save-image').addEventListener('click', function () {
-    if (saveDir == "") {
-        alert("Please select a folder to save the files to first!");
-        return;
-    };
-    if (imagefiles[currentimg] == null) {
-        alert("You have to open an image before you can save it anywhere!");
-        return;
+    if (agreed) {
+        if (saveDir == "") {
+            alert("Please select a folder to save the files to first!");
+            return;
+        };
+        if (imagefiles[currentimg] == null) {
+            alert("You have to open an image before you can save it anywhere!");
+            return;
+        }
+        fs.copyFile(imagefiles[currentimg].path, saveDir + "/" + imagefiles[currentimg].path.replace(/^.*[\\\/]/, ''), (err) => {
+            if (err) throw err;
+            document.getElementById("save-image").value = "Saved!";
+            setTimeout(() => {
+                document.getElementById("save-image").value = "Save";
+            }, 1000);
+        });
     }
-    fs.copyFile(imagefiles[currentimg].path, saveDir + "/" + imagefiles[currentimg].path.replace(/^.*[\\\/]/, ''), (err) => {
-        if (err) throw err;
-        document.getElementById("save-image").value = "Saved!";
-        setTimeout(() => {
-            document.getElementById("save-image").value = "Save";
-        }, 1000);
-    });
 }, false);
 
 // Delete All Images Button
 document.getElementById('delete-button').addEventListener('click', function () {
-    var t = confirm("Are you sure you want to delete the pictures from the SD card?");
-    if (t) {
-        deleteImages();
+    if (agreed) {
+        var t = confirm("Are you sure you want to delete the pictures from the SD card?");
+        if (t) {
+            deleteImages();
+        }
     }
 }, false);
 
