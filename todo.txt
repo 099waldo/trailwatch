@@ -1,0 +1,17 @@
+TODO:
+
+Add the license agreement on install (Add real details first!).
+Add a extra warning message when you press the delete button.
+Add a prompt to leave a review (or feedback)(in the form of link to website).
+Add left and right arrow buttons to scroll through the pictures.
+
+Build the webpage (must be mobile friendly).
+Add a place on the website where users can contact me directly (for feedback and/or bugs).
+Add google analitics to the site. 
+
+Setup auto updates: https://www.electron.build/auto-update
+
+Find maganizes or youtube channels or something to review it.
+Figure out what price to sell it at.
+Decide how many installs each user can have or if there should even be a limit.
+Decide on a release date.

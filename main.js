@@ -4,6 +4,7 @@ const { app, BrowserWindow } = require('electron')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+var licenseWindow;
 
 function createWindow() {
     // Create the browser window.
@@ -48,3 +49,31 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+function createCustomWindow(windowpath) {
+    // Create the browser window.
+    licenseWindow = new BrowserWindow({ width: 1024, height: 768 })
+
+    // and load the index.html of the app.
+    licenseWindow.loadFile(windowpath)
+
+    // Open the DevTools.
+    // mainWindow.webContents.openDevTools()
+
+    // Emitted when the window is closed.
+    licenseWindow.on('closed', function () {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        licenseWindow = null
+    })
+}
+
+// In some file from the main process
+// like main.js
+const { ipcMain } = require('electron');
+
+// Attach listener in the main process with the given ID
+ipcMain.on('openLicenseWindow', (event, arg) => {
+    createCustomWindow("license.html");
+});

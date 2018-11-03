@@ -15,6 +15,26 @@ var minimapEl;
 var allowSlowLoading = false;
 
 
+const { ipcRenderer } = require('electron');
+
+if (fs.existsSync("agreeToLicense")) {
+    // Do something
+    console.log("it exists");
+}
+else{
+    console.log("It doens't exist");
+    // Open licence agreement window.
+
+    ipcRenderer.send('openLicenseWindow', "hi world");
+    fs.writeFile("agreeToLicense", "Agreed", function (err) {
+        if (err) {
+            return console.log(err);
+        }
+
+        console.log("The file was saved!");
+    }); 
+}
+
 // Button onClick functions. 
 
 // Select SD Card Button
