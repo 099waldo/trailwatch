@@ -14,6 +14,8 @@ var minimapEl;
 
 var allowSlowLoading = false;
 
+var imgsclicked = 0;
+
 var agreed = false;
 
 const { ipcRenderer } = require('electron');
@@ -33,7 +35,7 @@ else {
 function checkAgreed(){
     if (fs.existsSync("agreeToLicense")) {
         // Do something
-        console.log("it exists");
+        // console.log("it exists");
         agreed = true;
     }
 }
@@ -122,6 +124,18 @@ document.getElementById('delete-button').addEventListener('click', function () {
 setInterval(function () {
     if (allowSlowLoading) slowLoading();
     checkAgreed();
+    if(imgsclicked > 20){
+        imgsclicked = 0;
+        if (document.getElementById("tipbar") == null){
+            document.getElementById("slide-up").id = "slide-down";
+        }
+        else{
+            document.getElementById("tipbar").id = "slide-down";
+        }
+        setTimeout(() => {
+            document.getElementById("slide-down").id = "slide-up";
+        }, 30000);
+    }
 }, 100);
 
 // Refresh the minimap display when the window is resized. Fixes minimap display issues. 
@@ -226,6 +240,8 @@ function makeactive(theimg) {
     currentimg = theimg;
 
     resetMinimap();
+
+    imgsclicked += 1;
 
     document.getElementById("img").src = imagefiles[theimg].path;
     centerMiniMap();

@@ -5,6 +5,7 @@ html, body {
 body {
     background-image: url("background.JPG");
     background-size: auto;
+    overflow-x: hidden;
 }
 
 .select-div {
@@ -92,4 +93,49 @@ input[type="button"].button:disabled {
 }
 input[type="button"].button:active {
     background: rgba(0, 0, 0, 0.445);
+}
+
+div#tipbar {
+    margin-top: -100%;
+}
+
+div#slide-down {
+    width:100%;
+    overflow:hidden;
+}
+div#slide-up {
+    width:100%;
+    overflow:hidden;
+}
+
+div#slide-down p {
+    animation: 4s slide-down;
+    margin-top:0%;
+}
+div#slide-up p {
+    animation: 4s slide-up;
+    margin-top:-100%;
+}
+
+@keyframes slide-down {
+  from {
+    margin-top: -100%;
+    height: 300%; 
+  }
+
+  to {
+    margin-top: 0%;
+    height: 100%;
+  }
+}
+@keyframes slide-up {
+  from {
+    margin-top: 0%;
+    height: 100%; 
+  }
+
+  to {
+    margin-top: -100%;
+    height: 300%;
+  }
 }
