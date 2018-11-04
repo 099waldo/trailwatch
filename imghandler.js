@@ -30,6 +30,14 @@ else {
     ipcRenderer.send('openLicenseWindow', "hi world");
 }
 
+function checkAgreed(){
+    if (fs.existsSync("agreeToLicense")) {
+        // Do something
+        console.log("it exists");
+        agreed = true;
+    }
+}
+
 // Button onClick functions. 
 
 // Select SD Card Button
@@ -47,6 +55,10 @@ document.getElementById('select-file').addEventListener('click', function () {
             }
         });
     }
+    else{
+        // Open license agreement window.
+        ipcRenderer.send('openLicenseWindow', "hi world");
+    }
 }, false);
 
 // Save folder button
@@ -59,6 +71,10 @@ document.getElementById('save-folder').addEventListener('click', function () {
                 saveDir = fileNames[0];
             }
         });
+    }
+    else {
+        // Open license agreement window.
+        ipcRenderer.send('openLicenseWindow', "hi world");
     }
 }, false);
 
@@ -81,6 +97,10 @@ document.getElementById('save-image').addEventListener('click', function () {
             }, 1000);
         });
     }
+    else {
+        // Open license agreement window.
+        ipcRenderer.send('openLicenseWindow', "hi world");
+    }
 }, false);
 
 // Delete All Images Button
@@ -91,12 +111,17 @@ document.getElementById('delete-button').addEventListener('click', function () {
             deleteImages();
         }
     }
+    else {
+        // Open license agreement window.
+        ipcRenderer.send('openLicenseWindow', "hi world");
+    }
 }, false);
 
 // If pictures have already been imported, run the slowLoading function for the minimap images. 
 
 setInterval(function () {
     if (allowSlowLoading) slowLoading();
+    checkAgreed();
 }, 100);
 
 // Refresh the minimap display when the window is resized. Fixes minimap display issues. 
