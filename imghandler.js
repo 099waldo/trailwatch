@@ -20,6 +20,10 @@ var agreed = false;
 
 const { ipcRenderer } = require('electron');
 
+var zoomable = false;
+var zoomfigure = document.getElementById("zoomfigure");
+var zoombutton = document.getElementById("zoom-button");
+
 if (fs.existsSync("agreeToLicense")) {
     // Do something
     console.log("it exists");
@@ -32,10 +36,8 @@ else {
     ipcRenderer.send('openLicenseWindow', "hi world");
 }
 
-function checkAgreed(){
+function checkAgreed() {
     if (fs.existsSync("agreeToLicense")) {
-        // Do something
-        // console.log("it exists");
         agreed = true;
     }
 }
@@ -57,7 +59,7 @@ document.getElementById('select-file').addEventListener('click', function () {
             }
         });
     }
-    else{
+    else {
         // Open license agreement window.
         ipcRenderer.send('openLicenseWindow', "hi world");
     }
@@ -119,17 +121,31 @@ document.getElementById('delete-button').addEventListener('click', function () {
     }
 }, false);
 
+// Zoom Button
+document.getElementById('zoom-button').addEventListener('click', function () {
+    if (zoomable) {
+        zoombutton.src = "notzoom.png";
+        zoomable = !zoomable;
+    }
+    else {
+        zoombutton.src = "zoom.png";
+        zoomable = !zoomable;
+    }
+}, false);
+
 // If pictures have already been imported, run the slowLoading function for the minimap images. 
 
 setInterval(function () {
-    if (allowSlowLoading) slowLoading();
+    if (allowSlowLoading) {
+        slowLoading();
+    }
     checkAgreed();
-    if(imgsclicked > 20){
+    if (imgsclicked > 20) {
         imgsclicked = 0;
-        if (document.getElementById("tipbar") == null){
+        if (document.getElementById("tipbar") == null) {
             document.getElementById("slide-up").id = "slide-down";
         }
-        else{
+        else {
             document.getElementById("tipbar").id = "slide-down";
         }
         setTimeout(() => {
@@ -245,6 +261,7 @@ function makeactive(theimg) {
 
     document.getElementById("img").src = imagefiles[theimg].path;
     centerMiniMap();
+    updateZooming();
 }
 
 // Get the extension of the file. 
@@ -344,6 +361,7 @@ function changeImage(dif) {
 
     document.getElementById("img").src = imagefiles[currentimg].path;
     centerMiniMap();
+    updateZooming();
 }
 
 // Center the selected image in the minimap. 
@@ -421,4 +439,31 @@ async function organizeImages() {
     }, 100);
 
 
+}
+
+function zoom(e) { // Check if zooming is enabled. 
+    var zoomer = e.currentTarget;
+    if (!zoomable) {
+        zoomfigure.style.backgroundImage = "url('placeholder.png')";
+        return;
+    }
+    updateZooming();
+    e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+    e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+    x = offsetX / zoomer.offsetWidth * 100
+    y = offsetY / zoomer.offsetHeight * 100
+    zoomer.style.backgroundPosition = x + '% ' + y + '%';
+}
+
+function updateZooming() {
+    zoomfigure.style.backgroundImage = "url('" + imagefiles[currentimg].path + "')";
+}
+
+function hideimg(yesorno) {
+    if (zoomable && yesorno) {
+        document.getElementById("img").style.opacity = 0;
+    }
+    else {
+        document.getElementById("img").style.opacity = 1;
+    }
 }

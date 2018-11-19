@@ -21,7 +21,11 @@
                 <hr>
             </div>
             <div class="displaydiv">
-                <img id="img" class="displayimg" src="placeholder.png" draggable="false"><br>
+                <figure id="zoomfigure" class="zoom" onmousemove="zoom(event)" style="background-image: url(placeholder.png)">
+                    <img id="img" class="displayimg" src="placeholder.png" draggable="false" onmouseover="hideimg(true)" onmouseout="hideimg(false)">
+                </figure>
+                <br>
+                <input type="image" src="notzoom.png" id="zoom-button" class="zoombutton" />
                 <input type="button" value="Save" id="save-image" class="savebutton" />
                 <input type="button" value="Choose Save Folder" id="save-folder" class="button" />
                 <input type="button" value="Delete All from SD Card" id="delete-button" class="deletebutton" hidden />

@@ -6,6 +6,7 @@ body {
     background-image: url("background.JPG");
     background-size: auto;
     overflow-x: hidden;
+    overflow: hidden;
 }
 
 .select-div {
@@ -37,10 +38,6 @@ body {
 
 .image {
     border: solid 2px transparent;
-}
-
-.displaydiv {
-    height: 600px;
 }
 
 button {
@@ -76,6 +73,13 @@ input[type="button"].deletebutton {
     font-size: 100%;
 }
 
+input[type="image"].zoombutton {
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    height: 25px;
+}
+
 input[type="button"].button {
     background-color: transparent;
     border: none;
@@ -93,6 +97,24 @@ input[type="button"].button:disabled {
 }
 input[type="button"].button:active {
     background: rgba(0, 0, 0, 0.445);
+}
+
+.zoom {
+    height: 65vh;
+    min-width: 1px;
+    min-height: 1px;
+    display: inline-block;
+}
+figure.zoom {
+  background-position: 50% 50%;
+  overflow: hidden;
+}
+/* figure.zoom img:hover {
+  opacity: 0;
+} */
+figure.zoom img {
+  transition: opacity .5s;
+  display: block;
 }
 
 div#tipbar {
