@@ -4,7 +4,6 @@ Fix bug where the bottom of the image isn't being showed.
 Fix bug where if you drag zoom button it crashes.
 Make buttons be in line with each other.
 
-Add a extra warning message when you press the delete button.
 Add a prompt to leave a review (or feedback)(in the form of link to website).
 Add left and right arrow buttons to scroll through the pictures.
 
@@ -19,6 +18,4 @@ Decide how many installs each user can have or if there should even be a limit.
 Decide on a release date.
 Add real details to the license agreement.
 
-Figure out what price to sell it at.
-
-I could put a price on it until there isn't a lot of people buying it then make it free and put ads on it. Or I could make it free and put ads on it and see what happens. It would probably make more money if I put a price on it, but if there was a price, less people will buy it. 
+Figure out what price to sell it at. Ask Mr. Stone.
