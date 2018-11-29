@@ -236,7 +236,7 @@ function updateMiniMap() { // Will do nothing if there is no images already in t
 
 // Makes it so images in the minimap don't load all at once. Could be extended to unload images that aren't being displayed if there are issues with the program being slow. 
 
-function slowLoading() {
+function slowLoading() { // This is probably running before it should. Thats why we're getting the undefined error. 
     if (minimapEl == null) {
         var minimapimgs = [];
         for (let i = 0; i < imagefiles.length; i++) {
@@ -456,7 +456,8 @@ function zoom(e) { // Check if zooming is enabled.
 }
 
 function updateZooming() {
-    zoomfigure.style.backgroundImage = "url('" + imagefiles[currentimg].path + "')";
+    const imgpath = imagefiles[currentimg].path.replace(/\\/g, '/');
+    zoomfigure.style.backgroundImage = "url('" + imgpath + "')";
 }
 
 function hideimg(yesorno) {
