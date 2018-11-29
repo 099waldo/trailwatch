@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-color: black;
+        }
+
+        .buttondiv {
+    /* border: solid 1px wheat; */
+    height: 4.5vh;
+}
+        button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    height: 90%;
+}
+
+input[type="button"].savebutton {
+    background-color:  #283593;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 0.5% 1%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 100%;
+}
+
+input[type="button"].deletebutton {
+    background-color:  #932828;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 0.5% 1%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 100%;
+}
+
+input[type="image"].zoombutton {
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    height: 25px;
+    margin-top: auto;
+}
+
+/* input[type="button"] {
+    padding: 10px;
+} */
+    </style>
+</head>
+
+<body>
+    <div class="buttondiv">
+        <table>
+            <th><input type="image" src="notzoom.png" id="zoom-button" class="zoombutton" /></th>
+            <th><input type="button" value="Save" id="save-image" class="savebutton" /></th>
+            <th><input type="button" value="Save" id="save-image" class="savebutton" /></th>
+            <th><input type="button" value="Choose Save Folder" id="save-folder" class="button" /></th>
+            <th><input type="button" value="Delete All from SD Card" id="delete-button" class="deletebutton" /></th>
+        </table>
+    </div>
+</body>
+
+</html>

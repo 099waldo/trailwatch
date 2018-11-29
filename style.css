@@ -13,6 +13,10 @@ body {
     height: 6vh;
 }
 
+.buttondiv {
+    height: 4.5vh;
+}
+
 .minimap {
     height: 14vh;
     border: solid 2px black;
@@ -25,7 +29,7 @@ body {
 }
 
 .displayimg {
-    height: 70vh;
+    height: 65vh;
 }
 
 .minimapimg {
