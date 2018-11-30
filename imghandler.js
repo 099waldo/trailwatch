@@ -16,7 +16,7 @@ var allowSlowLoading = false;
 
 var imgsclicked = 0;
 
-var agreed = false;
+var agreed = true;
 
 const { ipcRenderer } = require('electron');
 
