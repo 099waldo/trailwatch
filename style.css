@@ -82,6 +82,8 @@ input[type="image"].zoombutton {
     border-radius: 4px;
     text-align: center;
     height: 25px;
+    vertical-align: middle;
+    padding: 10px;
 }
 
 input[type="button"].button {

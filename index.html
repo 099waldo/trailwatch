@@ -11,7 +11,7 @@
 <body id="body">
     <div>
         <div id="tipbar" style="color:white;position: absolute;width: 30%;">
-            <p>Quick Tip: You can use the left and right arrow keys to change between images faster.</p>
+            <p>Quick Tip: You can use the left and right arrow keys to change between images.</p>
         </div>
         <div style="text-align:center;">
             <div class="select-div">
@@ -26,7 +26,7 @@
                         onmouseout="hideimg(false)">
                 </figure>
                 <br>
-                <input type="image" src="notzoom.png" id="zoom-button" class="zoombutton" />
+                <input type="image" src="notzoom.png" id="zoom-button" class="zoombutton" draggable="false" />
                 <input type="button" value="Save" id="save-image" class="savebutton" />
                 <input type="button" value="Choose Save Folder" id="save-folder" class="button" />
                 <input type="button" value="Delete All from SD Card" id="delete-button" class="deletebutton" hidden />

@@ -1,9 +1,5 @@
 TODO:
 
-Fix bug where the bottom of the image isn't being showed.
-Fix bug where if you drag zoom button it crashes.
-Make buttons be in line with each other.
-
 Add a prompt to leave a review (or feedback)(in the form of link to website).
 Add left and right arrow buttons to scroll through the pictures.
 
