@@ -348,6 +348,8 @@ document.getElementById("body").onkeydown = function (e) {
 // Changes the current image by the difference from the current image. Make dif = 0 if you don't want to change the current image. 
 
 function changeImage(dif) {
+    if(imagefiles[0] == null) return;
+
     currentimg += dif;
 
     if (imagefiles.length <= currentimg) {
