@@ -1,10 +1,11 @@
 TODO:
 
 Fix the window resize issue.
-Try changing the left and right arrow buttons to have some transparency. Maybe it will look better. 
-Fix the left and right arrow buttons vertical alignment.
 Add left and right arrow buttons to scroll through the pictures.
 Add a prompt to leave a review (or feedback)(in the form of link to website).
+
+Fix the left and right arrow buttons vertical alignment.
+Try changing the left and right arrow buttons to have some transparency. Maybe it will look better. 
 
 Build the webpage (must be mobile friendly).
 Add a place on the website where users can contact me directly (for feedback and/or bugs).
