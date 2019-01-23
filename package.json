@@ -6,7 +6,7 @@
     "scripts": {
         "start": "electron .",
         "pack": "electron-builder --dir",
-        "dist": "electron-builder"
+        "dist": "electron-builder -mwl"
     },
     "keywords": [
         "Trail Cam",
@@ -14,7 +14,7 @@
     ],
     "devDependencies": {
         "electron": "^2.0.0",
-        "electron-builder": "^20.31.2"
+        "electron-builder": "^20.38.5"
     },
     "dependencies": {
         "npm": "^6.4.1"
