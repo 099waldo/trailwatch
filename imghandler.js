@@ -33,7 +33,7 @@ else {
     console.log("It doens't exist");
     // Open licence agreement window.
 
-    ipcRenderer.send('openLicenseWindow', "hi world");
+    // ipcRenderer.send('openLicenseWindow', "hi world");
 }
 
 function checkAgreed() {
@@ -139,7 +139,7 @@ setInterval(function () {
     if (allowSlowLoading) {
         slowLoading();
     }
-    checkAgreed();
+    // checkAgreed();
     if (imgsclicked > 20) {
         imgsclicked = 0;
         if (document.getElementById("tipbar") == null) {
