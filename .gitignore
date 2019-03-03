@@ -4,3 +4,4 @@ dist
 yarn.lock
 .vscode
 agreeToLicense
+trailwatch-win32-x64
