@@ -8,9 +8,9 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 
 ```bash
 # Clone this repository
-git clone https://github.com/electron/electron-quick-start
+git clone https://gitlab.com/099waldo/card-reader.git
 # Go into the repository
-cd electron-quick-start
+cd card-reader
 # Install dependencies
 npm install
 # Run the app
