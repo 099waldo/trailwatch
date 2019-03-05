@@ -234,7 +234,7 @@ function updateMiniMap() { // Will do nothing if there is no images already in t
     }
 }
 
-// Makes it so images in the minimap don't load all at once. Could be extended to unload images that aren't being displayed if there are issues with the program being slow. 
+// Makes it so images in the minimap don't load all at once. Has been extended to unload images that aren't being displayed.
 
 function slowLoading() { // This is probably running before it should. Thats why we're getting the undefined error. 
     if (minimapEl == null) {
@@ -245,7 +245,12 @@ function slowLoading() { // This is probably running before it should. Thats why
         minimapEl = minimapimgs;
     }
     for (var i = 0; i < minimapEl.length; i++) {
-        if (isInViewport(minimapEl[i])) minimapEl[i].children[0].src = minimapEl[i].children[0].getAttribute("data-src");
+        if (isInViewport(minimapEl[i])) {
+            minimapEl[i].children[0].src = minimapEl[i].children[0].getAttribute("data-src");
+        }
+        else {
+            minimapEl[i].children[0].src = "placeholder.png";
+        }
     }
 }
 

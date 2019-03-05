@@ -2,16 +2,12 @@ TODO:
 
 Fix the window resize issue.
 Add left and right arrow buttons to scroll through the pictures.
-Add a prompt to leave a review (or feedback)(in the form of link to website).
 
 Fix the left and right arrow buttons vertical alignment.
 Try changing the left and right arrow buttons to have some transparency. Maybe it will look better. 
 
-Build the webpage (must be mobile friendly).
-Add a place on the website where users can contact me directly (for feedback and/or bugs).
-Add google analitics to the site. 
-
 Setup auto updates: https://www.electron.build/auto-update
+    If we use the microsoft store we won't need this.
 
 Find maganizes or youtube channels or something to review it.
 Decide how many installs each user can have or if there should even be a limit.
@@ -19,3 +15,7 @@ Decide on a release date.
 Add real details to the license agreement.
 
 Figure out what price to sell it at. Ask Mr. Stone.
+
+Questions:
+What price should I sell it at?
+Should I make a website for it?
