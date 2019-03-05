@@ -158,10 +158,12 @@ setInterval(function () {
 
 window.onresize = function (event) {
     var n = document.createTextNode(' ');
-    var disp = minimap.style.display;  // don't worry about previous display style
+    // var disp = minimap.style.display;
 
     minimap.appendChild(n);
-    minimap.style.display = 'none';
+    // minimap.style.display = 'none';
+
+    // Don't know why ^this^ line was even here. It doesn't seen to effect anything when it is disabled. It was disabing the minimap when the window was being resized. 
 
     setTimeout(function () {
         minimap.style.display = disp;
