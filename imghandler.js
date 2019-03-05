@@ -348,7 +348,7 @@ document.getElementById("body").onkeydown = function (e) {
 // Changes the current image by the difference from the current image. Make dif = 0 if you don't want to change the current image. 
 
 function changeImage(dif) {
-    if(imagefiles[0] == null) return;
+    if (imagefiles[0] == null) return;
 
     currentimg += dif;
 
@@ -389,8 +389,10 @@ function resetMinimap() {
 
 function isInViewport(el) {
     var rect = el.getBoundingClientRect();
+    var isntRight = rect.right - (2 * rect.width) <= document.documentElement.clientWidth;
+    var instLeft = rect.left + (2 * rect.width) >= 0;
 
-    return (rect.right <= document.documentElement.clientWidth) && (rect.right > 0);
+    return instLeft && isntRight && (rect.right > 0);
 }
 
 // Get the date of a image file.
