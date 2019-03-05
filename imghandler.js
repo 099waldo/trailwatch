@@ -394,8 +394,8 @@ function resetMinimap() {
 
 function isInViewport(el) {
     var rect = el.getBoundingClientRect();
-    var isntRight = rect.right - (2 * rect.width) <= document.documentElement.clientWidth;
-    var instLeft = rect.left + (2 * rect.width) >= 0;
+    var isntRight = rect.right - (4 * rect.width) <= document.documentElement.clientWidth;
+    var instLeft = rect.right + (4 * rect.width) >= 0;
 
     return instLeft && isntRight && (rect.right > 0);
 }
