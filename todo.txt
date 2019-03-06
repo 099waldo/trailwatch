@@ -16,6 +16,9 @@ Add real details to the license agreement.
 
 Figure out what price to sell it at. Ask Mr. Stone.
 
-Questions:
-What price should I sell it at?
-Should I make a website for it?
+Questions for Mr. Stone:
+- What does he think of it? What can I improve on?
+- What price should I sell it at?
+- Should I make a website for it?
+- Do I need a license if I'm selling it on the microsoft store?
+- Make sure there is no way that anyone can sue me if my app deletes their hard drive or something. 
