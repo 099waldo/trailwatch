@@ -166,7 +166,7 @@ window.onresize = function (event) {
     // Don't know why ^this^ line was even here. It doesn't seen to effect anything when it is disabled. It was disabing the minimap when the window was being resized. 
 
     setTimeout(function () {
-        minimap.style.display = disp;
+        // minimap.style.display = disp;
         n.parentNode.removeChild(n);
     }, 20); // you can play with this timeout to make it as short as possible
 };
@@ -371,6 +371,12 @@ function changeImage(dif) {
     document.getElementById("img").src = imagefiles[currentimg].path;
     centerMiniMap();
     updateZooming();
+    var t = setInterval(() => {
+        centerMiniMap();
+    }, 5);
+    setTimeout(() => {
+        clearInterval(t);
+    }, 1000);
 }
 
 // Center the selected image in the minimap. 
