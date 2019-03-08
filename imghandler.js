@@ -140,7 +140,7 @@ setInterval(function () {
         slowLoading();
     }
     // checkAgreed();
-    if (imgsclicked > 20) {
+    if (imgsclicked > 100) {
         imgsclicked = 0;
         if (document.getElementById("tipbar") == null) {
             document.getElementById("slide-up").id = "slide-down";
