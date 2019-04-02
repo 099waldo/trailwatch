@@ -1,0 +1,16 @@
+If it's been a while since you've built it, update to the latest version of node and the latest version of yarn. 
+
+First install electron windows store
+
+npm install -g electron-windows-store
+
+Now generate the package that we will then turn into an appx. 
+
+electron-packager . trailwatch --icon=build/icon.ico --platform=win32
+
+Run the windows powershell as admin and run this command. 
+    Make sure the --make-pri is set to true or else the icon in the taskbar will have a background. 
+
+Don't forget to increment the version number and save it to wherever I keep my archives of the different releases. 
+
+electron-windows-store --input-directory C:\users\info\desktop\card-reader\trailwatch-win32-x64\ --output-directory C:\users\info\desktop\out --package-version 1.0.0.0 --package-name trailwatch --assets C:\users\info\Desktop\card-reader\build\appx\ --manifest C:\Users\info\Desktop\card-reader\AppXManifest.xml --package-background-color transparent  --make-pri true

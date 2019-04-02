@@ -1,12 +1,13 @@
 {
     "name": "trailwatch",
+    "author": "Waldo",
     "version": "1.0.0",
     "description": "A better way to view your trail cam pictures.",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
-        "pack": "electron-builder --dir",
-        "dist": "electron-builder -mwl"
+        "pack": "electron-builder --mwl",
+        "dist": "electron-builder"
     },
     "keywords": [
         "Trail Cam",
@@ -14,13 +15,14 @@
     ],
     "devDependencies": {
         "electron": "^2.0.0",
-        "electron-builder": "^20.38.5"
+        "electron-builder": "^20.39.0"
     },
     "dependencies": {
         "npm": "^6.4.1"
     },
     "build": {
         "appId": "trail.watch",
+        "productName": "Trail Watch",
         "mac": {
             "category": "trail.watch.utility.app"
         }

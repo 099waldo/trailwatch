@@ -5,3 +5,22 @@ yarn.lock
 .vscode
 agreeToLicense
 trailwatch-win32-x64
+build/other stuff/44x44Logo.png
+priconfig.xml
+resources.pri
+resources.language-is.pri
+resources.language-is-npm.pri
+resources.language-is-obj.pri
+resources.language-ms.pri
+.vs/ProjectSettings.json
+.vs/VSWorkspaceState.json
+.vs/slnx.sqlite
+.vs/card-reader/v15/.suo
+build/other stuff/150x150.scale-100.png
+build/other stuff/150x150.scale-100_altform-unplated.png
+build/other stuff/44x44Logo.targetsize-256_altform-unplated.png
+build/other stuff/50x50Logo.png
+buildResources/appx/Square150x150Logo.png.png
+buildResources/appx/Square44x44Logo.png.png
+buildResources/appx/StoreLogo.png.png
+buildResources/appx/Wide310x150Logo.png.png
