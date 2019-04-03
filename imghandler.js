@@ -46,6 +46,30 @@ function checkAgreed() {
 
 // Select SD Card Button
 document.getElementById('select-file').addEventListener('click', function () {
+    selectSDCard();
+}, false);
+
+// Save folder button
+document.getElementById('save-folder').addEventListener('click', function () {
+    selectSaveFolder();
+}, false);
+
+// Save Image Button
+document.getElementById('save-image').addEventListener('click', function () {
+    saveImage();
+}, false);
+
+// Delete All Images Button
+document.getElementById('delete-button').addEventListener('click', function () {
+    deleteImages();
+}, false);
+
+// Zoom Button
+document.getElementById('zoom-button').addEventListener('click', function () {
+    toggleZoom();
+}, false);
+
+function selectSDCard() {
     if (agreed) {
         dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
             if (fileNames === undefined) {
@@ -63,10 +87,9 @@ document.getElementById('select-file').addEventListener('click', function () {
         // Open license agreement window.
         ipcRenderer.send('openLicenseWindow', "hi world");
     }
-}, false);
+}
 
-// Save folder button
-document.getElementById('save-folder').addEventListener('click', function () {
+function selectSaveFolder() {
     if (agreed) {
         dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
             if (fileNames === undefined) {
@@ -80,10 +103,9 @@ document.getElementById('save-folder').addEventListener('click', function () {
         // Open license agreement window.
         ipcRenderer.send('openLicenseWindow', "hi world");
     }
-}, false);
+}
 
-// Save Image Button
-document.getElementById('save-image').addEventListener('click', function () {
+function saveImage() {
     if (agreed) {
         if (saveDir == "") {
             alert("Please select a folder to save the files to first!");
@@ -105,10 +127,9 @@ document.getElementById('save-image').addEventListener('click', function () {
         // Open license agreement window.
         ipcRenderer.send('openLicenseWindow', "hi world");
     }
-}, false);
+}
 
-// Delete All Images Button
-document.getElementById('delete-button').addEventListener('click', function () {
+function deleteImages() {
     if (agreed) {
         var t = confirm("Are you sure you want to delete the pictures from the SD card?");
         if (t) {
@@ -119,10 +140,9 @@ document.getElementById('delete-button').addEventListener('click', function () {
         // Open license agreement window.
         ipcRenderer.send('openLicenseWindow', "hi world");
     }
-}, false);
+}
 
-// Zoom Button
-document.getElementById('zoom-button').addEventListener('click', function () {
+function toggleZoom() {
     if (zoomable) {
         zoombutton.src = "notzoom.png";
         zoomable = !zoomable;
@@ -131,7 +151,7 @@ document.getElementById('zoom-button').addEventListener('click', function () {
         zoombutton.src = "zoom.png";
         zoomable = !zoomable;
     }
-}, false);
+}
 
 // If pictures have already been imported, run the slowLoading function for the minimap images. 
 
