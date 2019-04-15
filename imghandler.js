@@ -251,7 +251,9 @@ function updateMiniMap() { // Will do nothing if there is no images already in t
             img.src = "placeholder.png";
             //img.src = imagefiles[i].path;
 
-            if(getExt(imagefiles[i].path) == "mp4") {
+            var ext = getExt(imagefiles[i].path);
+
+            if(ext == "mp4" || ext == "webm" || ext == "ogg") {
                 img.setAttribute("data-src", "placeholder.png");
             }
             else {
@@ -305,7 +307,7 @@ function makeactive(theimg) {
 // Get the extension of the file.
 
 function getExt(filename) {
-    return filename.split('.').pop();
+    return filename.split('.').pop().toLowerCase();
 }
 
 // Returns true if the file is a directory.
@@ -360,7 +362,8 @@ function getFilesFromDir(filepath, callback) {
         // files.
         var newfilesindir = [];
         for (var i = 0; i < filesindir.length; i++) {
-            if (getExt(filesindir[i]).toLowerCase() == "png" || getExt(filesindir[i]).toLowerCase() == "jpg" || getExt(filesindir[i]).toLowerCase() == "mp4") {
+            var ext = getExt(filesindir[i]);
+            if (ext == "png" || ext == "jpg" || ext  == "mp4" || ext == "webm" || ext == "ogg") {
                 newfilesindir.push(filesindir[i]);
             }
         }
@@ -401,7 +404,9 @@ function changeImage(dif) {
 
     resetMinimap();
 
-    if (getExt(imagefiles[currentimg].path) == "mp4") {
+    var ext = getExt(imagefiles[currentimg].path);
+
+    if (ext == "mp4" || ext == "webm" || ext == "ogg") {
         // Use this instead to that we can only load the images when
         // they are visable on the page.
         document.getElementById("zoomfigure").style.display = 'none';
