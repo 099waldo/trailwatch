@@ -36,6 +36,14 @@ hr {
     height: 65vh;
 }
 
+.displaydiv {
+    text-align: center;
+}
+
+.vid {
+    height: 65vh;
+}
+
 .minimapimg {
     height: 100%;
 }

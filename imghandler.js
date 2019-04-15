@@ -24,13 +24,15 @@ var zoomable = false;
 var zoomfigure = document.getElementById("zoomfigure");
 var zoombutton = document.getElementById("zoom-button");
 
+document.getElementById("vid").style.display = 'none';
+//document.getElementById("zoomfigure").style.display = 'none';
+
 if (fs.existsSync("agreeToLicense")) {
     // Do something
     console.log("it exists");
     agreed = true;
 }
-else {
-    console.log("It doens't exist");
+else { console.log("It doens't exist");
     // Open licence agreement window.
 
     // ipcRenderer.send('openLicenseWindow', "hi world");
@@ -42,7 +44,7 @@ function checkAgreed() {
     }
 }
 
-// Button onClick functions. 
+// Button onClick functions.
 
 // Select SD Card Button
 document.getElementById('select-file').addEventListener('click', function () {
@@ -153,7 +155,7 @@ function toggleZoom() {
     }
 }
 
-// If pictures have already been imported, run the slowLoading function for the minimap images. 
+// If pictures have already been imported, run the slowLoading function for the minimap images.
 
 setInterval(function () {
     if (allowSlowLoading) {
@@ -174,7 +176,7 @@ setInterval(function () {
     }
 }, 100);
 
-// Refresh the minimap display when the window is resized. Fixes minimap display issues. 
+// Refresh the minimap display when the window is resized. Fixes minimap display issues.
 
 window.onresize = function (event) {
     var n = document.createTextNode(' ');
@@ -183,7 +185,7 @@ window.onresize = function (event) {
     minimap.appendChild(n);
     // minimap.style.display = 'none';
 
-    // Don't know why ^this^ line was even here. It doesn't seen to effect anything when it is disabled. It was disabing the minimap when the window was being resized. 
+    // Don't know why ^this^ line was even here. It doesn't seen to effect anything when it is disabled. It was disabing the minimap when the window was being resized.
 
     setTimeout(function () {
         // minimap.style.display = disp;
@@ -228,10 +230,10 @@ function deleteImages() {
     alert("All of the images have been successfully deleted!");
 }
 
-// If the minimap doesn't have images on it yet, put images in it. 
+// If the minimap doesn't have images on it yet, put images in it.
 
 function updateMiniMap() { // Will do nothing if there is no images already in the minimap.
-    if (minimap.innerHTML != null) { // Only run when pictures are imported. 
+    if (minimap.innerHTML != null) { // Only run when pictures are imported.
         for (var i = 0; i < imagefiles.length; i++) {
             var button = document.createElement("button");
             if (imagefiles[i].selected) {
@@ -248,7 +250,15 @@ function updateMiniMap() { // Will do nothing if there is no images already in t
             img.className = "minimapimg";
             img.src = "placeholder.png";
             //img.src = imagefiles[i].path;
-            img.setAttribute("data-src", imagefiles[i].path); // Use this instead to that we can only load the images when they are visable on the page. 
+
+            if(getExt(imagefiles[i].path) == "mp4") {
+                img.setAttribute("data-src", "placeholder.png");
+            }
+            else {
+                img.setAttribute("data-src", imagefiles[i].path);
+            }
+
+           //img.setAttribute("data-src", imagefiles[i].path); // Use this instead to that we can only load the images when they are visable on the page.
             img.draggable = false;
             button.appendChild(img);
             minimap.appendChild(button);
@@ -258,7 +268,7 @@ function updateMiniMap() { // Will do nothing if there is no images already in t
 
 // Makes it so images in the minimap don't load all at once. Has been extended to unload images that aren't being displayed.
 
-function slowLoading() { // This is probably running before it should. Thats why we're getting the undefined error. 
+function slowLoading() { // This is probably running before it should. Thats why we're getting the undefined error.
     if (minimapEl == null) {
         var minimapimgs = [];
         for (let i = 0; i < imagefiles.length; i++) {
@@ -276,7 +286,7 @@ function slowLoading() { // This is probably running before it should. Thats why
     }
 }
 
-// Make the selected image in the minimap look like it is selected. 
+// Make the selected image in the minimap look like it is selected.
 
 function makeactive(theimg) {
     var img = document.getElementById(imagefiles[theimg].id);
@@ -287,24 +297,25 @@ function makeactive(theimg) {
     imgsclicked += 1;
 
     document.getElementById("img").src = imagefiles[theimg].path;
+    document.getElementById("vid").src = imagefiles[theimg].path;
     centerMiniMap();
     updateZooming();
 }
 
-// Get the extension of the file. 
+// Get the extension of the file.
 
 function getExt(filename) {
     return filename.split('.').pop();
 }
 
-// Returns true if the file is a directory. 
+// Returns true if the file is a directory.
 
 function isDir(filename) {
     var stats = fs.statSync(filename);
     return stats.isDirectory();
 }
 
-// Returns all of the image files in the selected directory and subdirectories. 
+// Returns all of the image files in the selected directory and subdirectories.
 
 function getFilesFromDir(filepath, callback) {
     var result = null;
@@ -340,14 +351,16 @@ function getFilesFromDir(filepath, callback) {
             // var fullpath = fspath.join(path, fileName[i]);
             // console.log(fullpath);
             if (!isDir(path)) {
-                filesindir.push(path); // If they aren't a directory add them to the list. 
+                filesindir.push(path); // If they aren't a directory add them
+                // to the list.
             }
         }
 
-        // Take out all of the files that are not image files. 
+        // Take out all of the files that are not supported image or video
+        // files.
         var newfilesindir = [];
         for (var i = 0; i < filesindir.length; i++) {
-            if (getExt(filesindir[i]).toLowerCase() == "png" || getExt(filesindir[i]).toLowerCase() == "jpg") {
+            if (getExt(filesindir[i]).toLowerCase() == "png" || getExt(filesindir[i]).toLowerCase() == "jpg" || getExt(filesindir[i]).toLowerCase() == "mp4") {
                 newfilesindir.push(filesindir[i]);
             }
         }
@@ -359,7 +372,7 @@ function getFilesFromDir(filepath, callback) {
     })
 }
 
-// Makes the arrow keys scroll through the images. 
+// Makes the arrow keys scroll through the images.
 
 document.getElementById("body").onkeydown = function (e) {
     if (!e) e = window.event;
@@ -372,7 +385,7 @@ document.getElementById("body").onkeydown = function (e) {
     }
 }
 
-// Changes the current image by the difference from the current image. Make dif = 0 if you don't want to change the current image. 
+// Changes the current image by the difference from the current image. Make dif = 0 if you don't want to change the current image.
 
 function changeImage(dif) {
     if (imagefiles[0] == null) return;
@@ -388,7 +401,21 @@ function changeImage(dif) {
 
     resetMinimap();
 
+    if (getExt(imagefiles[currentimg].path) == "mp4") {
+        // Use this instead to that we can only load the images when
+        // they are visable on the page.
+        document.getElementById("zoomfigure").style.display = 'none';
+        document.getElementById("vid").style.display = 'inline';
+    }
+    else {
+        document.getElementById("vid").style.display = 'none';
+        document.getElementById("zoomfigure").style.display = 'inline-block';
+        document.getElementById("img").style.display = 'inline';
+    }
+
     document.getElementById("img").src = imagefiles[currentimg].path;
+    document.getElementById("vid").src = imagefiles[currentimg].path;
+
     centerMiniMap();
     updateZooming();
     var t = setInterval(() => {
@@ -399,13 +426,13 @@ function changeImage(dif) {
     }, 1000);
 }
 
-// Center the selected image in the minimap. 
+// Center the selected image in the minimap.
 
 function centerMiniMap() {
     minimap.scrollLeft = (document.getElementById(imagefiles[currentimg].id).offsetLeft - minimap.offsetWidth / 2) + document.getElementById(imagefiles[currentimg].id).offsetWidth / 2;
 }
 
-// Reset the selected image in the minimap. 
+// Reset the selected image in the minimap.
 
 function resetMinimap() {
     for (var i = 0; i < imagefiles.length; i++) {
@@ -418,7 +445,7 @@ function resetMinimap() {
     }
 }
 
-// Check if the DOM element is in the viewport. 
+// Check if the DOM element is in the viewport.
 
 function isInViewport(el) {
     var rect = el.getBoundingClientRect();
@@ -455,7 +482,7 @@ async function organizeImages() {
     }
 
     setTimeout(() => {
-        // Sort imagefiles. 
+        // Sort imagefiles.
         imagefiles.sort(function (a, b) { return new Date(a.d) - new Date(b.d); });
 
         // Reset ids
@@ -463,7 +490,7 @@ async function organizeImages() {
             imagefiles[i].id = "img" + i;
         }
 
-        // Display minimap. 
+        // Display minimap.
         currentimg = 0;
         minimap.innerHTML = null;
         updateMiniMap();
@@ -478,7 +505,7 @@ async function organizeImages() {
 
 }
 
-function zoom(e) { // Check if zooming is enabled. 
+function zoom(e) { // Check if zooming is enabled.
     var zoomer = e.currentTarget;
     if (!zoomable) {
         zoomfigure.style.backgroundImage = "url('placeholder.png')";
