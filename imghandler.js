@@ -298,6 +298,20 @@ function makeactive(theimg) {
 
     imgsclicked += 1;
 
+    var ext = getExt(imagefiles[currentimg].path);
+
+    if (ext == "mp4" || ext == "webm" || ext == "ogg") {
+         // Use this instead to that we can only load the images when
+         // they are visable on the page.
+         document.getElementById("zoomfigure").style.display = 'none';
+         document.getElementById("vid").style.display = 'inline';
+     }
+     else {
+         document.getElementById("vid").style.display = 'none';
+         document.getElementById("zoomfigure").style.display = 'inline-block';
+         document.getElementById("img").style.display = 'inline';
+     }
+
     document.getElementById("img").src = imagefiles[theimg].path;
     document.getElementById("vid").src = imagefiles[theimg].path;
     centerMiniMap();
