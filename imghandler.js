@@ -254,7 +254,7 @@ function updateMiniMap() { // Will do nothing if there is no images already in t
             var ext = getExt(imagefiles[i].path);
 
             if(ext == "mp4" || ext == "webm" || ext == "ogg") {
-                img.setAttribute("data-src", "placeholder.png");
+                img.setAttribute("data-src", "video.png");
             }
             else {
                 img.setAttribute("data-src", imagefiles[i].path);
@@ -305,11 +305,13 @@ function makeactive(theimg) {
          // they are visable on the page.
          document.getElementById("zoomfigure").style.display = 'none';
          document.getElementById("vid").style.display = 'inline';
+         document.getElementById("zoom-button").style.opacity = 0.3;
      }
      else {
          document.getElementById("vid").style.display = 'none';
          document.getElementById("zoomfigure").style.display = 'inline-block';
          document.getElementById("img").style.display = 'inline';
+         document.getElementById("zoom-button").style.opacity = 1;
      }
 
     document.getElementById("img").src = imagefiles[theimg].path;
@@ -435,6 +437,8 @@ function changeImage(dif) {
     document.getElementById("img").src = imagefiles[currentimg].path;
     document.getElementById("vid").src = imagefiles[currentimg].path;
 
+    togglezoombutton();
+
     centerMiniMap();
     updateZooming();
     var t = setInterval(() => {
@@ -518,6 +522,7 @@ async function organizeImages() {
         allowSlowLoading = true;
         setTimeout(() => {
             slowLoading();
+            togglezoombutton();
         }, 500);
     }, 100);
 
@@ -550,4 +555,16 @@ function hideimg(yesorno) {
     else {
         document.getElementById("img").style.opacity = 1;
     }
+}
+
+function togglezoombutton() {
+	var ext = getExt(imagefiles[currentimg].path);
+	if(ext == "mp4" || ext == "webm" || ext == "ogg") {
+		document.getElementById("zoom-button").style.opacity = 0.3;
+        //document.getElementById("zoom-button").setAttribute("disabled", true);
+	}
+	else {
+		document.getElementById("zoom-button").style.opacity = 1;
+        //document.getElementById("zoom-button").removeAttribute("disabled");
+	}
 }
