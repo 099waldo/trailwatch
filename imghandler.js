@@ -559,12 +559,13 @@ function hideimg(yesorno) {
 
 function togglezoombutton() {
 	var ext = getExt(imagefiles[currentimg].path);
+    var zoombutton = document.getElementById("zoom-button");
 	if(ext == "mp4" || ext == "webm" || ext == "ogg") {
-		document.getElementById("zoom-button").style.opacity = 0.3;
-        //document.getElementById("zoom-button").setAttribute("disabled", true);
+		zoombutton.style.opacity = 0.3;
+        zoombutton.setAttribute("disabled", 1);
 	}
 	else {
-		document.getElementById("zoom-button").style.opacity = 1;
-        //document.getElementById("zoom-button").removeAttribute("disabled");
+		zoombutton.style.opacity = 1;
+        zoombutton.disabled = !zoombutton.disabled;
 	}
 }
