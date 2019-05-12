@@ -318,6 +318,7 @@ function makeactive(theimg) {
     document.getElementById("vid").src = imagefiles[theimg].path;
     centerMiniMap();
     updateZooming();
+    togglezoombutton();
 }
 
 // Get the extension of the file.
@@ -402,6 +403,10 @@ document.getElementById("body").onkeydown = function (e) {
     if (keyCode == 37 && imagefiles[0] != null) {
         changeImage(-1);
     }
+    //var video = document.getElementById("vid");
+    //if (keyCode == 32 && imagefiles[0] != null) {
+    //  playpause();
+    //}
 }
 
 // Changes the current image by the difference from the current image. Make dif = 0 if you don't want to change the current image.
@@ -568,4 +573,14 @@ function togglezoombutton() {
 		zoombutton.style.opacity = 1;
         zoombutton.disabled = !zoombutton.disabled;
 	}
+}
+
+function playpause() {
+    var video = document.getElementById("vid");
+    if (video.paused) {
+        video.play();
+    }
+    else {
+        video.pause();
+    }
 }

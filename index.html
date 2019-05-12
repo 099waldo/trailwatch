@@ -22,7 +22,7 @@
             </div>
             <div class="displaydiv">
                 <button class="leftarrow" onclick="changeImage(-1)"><img src="leftarrow.png" draggable="false"></button>
-                <video id="vid" class="vid" controls="true" autoplay></video>
+                <video id="vid" class="vid" controls="true" autoplay onclick="playpause()"></video>
                 <figure id="zoomfigure" class="zoom" onmousemove="zoom(event)" style="background-image: url(placeholder.png)">
                     <img id="img" class="displayimg" src="placeholder.png" draggable="false" onmouseover="hideimg(true)"
                         onmouseout="hideimg(false)">
