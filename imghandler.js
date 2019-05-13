@@ -91,13 +91,16 @@ function selectSDCard() {
     }
 }
 
-function selectSaveFolder() {
+function selectSaveFolder(save = false) {
     if (agreed) {
         dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }, function (fileNames) {
             if (fileNames === undefined) {
                 console.log("No file selected");
             } else {
                 saveDir = fileNames[0];
+                if(save){
+                    saveImage();
+                }
             }
         });
     }
@@ -109,14 +112,15 @@ function selectSaveFolder() {
 
 function saveImage() {
     if (agreed) {
-        if (saveDir == "") {
-            alert("Please select a folder to save the files to first!");
-            return;
-        };
         if (imagefiles[currentimg] == null) {
             alert("You have to open an image before you can save it anywhere!");
             return;
         }
+        if (saveDir == "") {
+            console.log("Please select a folder to save the files to first!");
+            selectSaveFolder(true);
+            return;
+        };
         fs.copyFile(imagefiles[currentimg].path, saveDir + "/" + imagefiles[currentimg].path.replace(/^.*[\\\/]/, ''), (err) => {
             if (err) throw err;
             document.getElementById("save-image").value = "Saved!";
