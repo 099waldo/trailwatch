@@ -23,16 +23,18 @@
             <div class="displaydiv">
                 <button class="leftarrow" onclick="changeImage(-1)"><img src="leftarrow.png" draggable="false"></button>
                 <video id="vid" class="vid" controls="true" autoplay onclick="playpause()"></video>
-                <figure id="zoomfigure" class="zoom" onmousemove="zoom(event)" style="background-image: url(placeholder.png)">
+                <figure id="zoomfigure" class="zoom" onmousemove="zoom(event)"
+                    style="background-image: url(placeholder.png)">
                     <img id="img" class="displayimg" src="placeholder.png" draggable="false" onmouseover="hideimg(true)"
                         onmouseout="hideimg(false)">
                 </figure>
-                <button class="rightarrow" onclick="changeImage(1)"><img src="rightarrow.png" draggable="false"></button>
+                <button class="rightarrow" onclick="changeImage(1)"><img src="rightarrow.png"
+                        draggable="false"></button>
                 <br>
                 <input type="image" src="notzoom.png" id="zoom-button" class="zoombutton" draggable="false" />
                 <input type="button" value="Save" id="save-image" class="savebutton" />
                 <input type="button" value="Choose Save Folder" id="save-folder" class="button" />
-                <input type="button" value="Delete All from SD Card" id="delete-button" class="deletebutton" hidden />
+                <input type="button" value="Delete All" id="delete-button" class="deletebutton" hidden />
                 <div class="minimap" id="minimap"></div>
             </div>
         </div>

@@ -32,7 +32,8 @@ if (fs.existsSync("agreeToLicense")) {
     console.log("it exists");
     agreed = true;
 }
-else { console.log("It doens't exist");
+else {
+    console.log("It doens't exist");
     // Open licence agreement window.
 
     // ipcRenderer.send('openLicenseWindow', "hi world");
@@ -63,7 +64,7 @@ document.getElementById('save-image').addEventListener('click', function () {
 
 // Delete All Images Button
 document.getElementById('delete-button').addEventListener('click', function () {
-    deleteImages();
+    deleteTheImages();
 }, false);
 
 // Zoom Button
@@ -98,7 +99,7 @@ function selectSaveFolder(save = false) {
                 console.log("No file selected");
             } else {
                 saveDir = fileNames[0];
-                if(save){
+                if (save) {
                     saveImage();
                 }
             }
@@ -135,9 +136,9 @@ function saveImage() {
     }
 }
 
-function deleteImages() {
+function deleteTheImages() {
     if (agreed) {
-        var t = confirm("Are you sure you want to delete the pictures from the SD card?");
+        var t = confirm("THIS WILL PERMENENTLY DELETE EVERYTHING FROM THE SD CARD.\n\nAre you sure you want to continue? ");
         if (t) {
             deleteImages();
         }
@@ -257,14 +258,14 @@ function updateMiniMap() { // Will do nothing if there is no images already in t
 
             var ext = getExt(imagefiles[i].path);
 
-            if(ext == "mp4" || ext == "webm" || ext == "ogg") {
+            if (ext == "mp4" || ext == "webm" || ext == "ogg") {
                 img.setAttribute("data-src", "video.png");
             }
             else {
                 img.setAttribute("data-src", imagefiles[i].path);
             }
 
-           //img.setAttribute("data-src", imagefiles[i].path); // Use this instead to that we can only load the images when they are visable on the page.
+            //img.setAttribute("data-src", imagefiles[i].path); // Use this instead to that we can only load the images when they are visable on the page.
             img.draggable = false;
             button.appendChild(img);
             minimap.appendChild(button);
@@ -305,24 +306,24 @@ function makeactive(theimg) {
     var ext = getExt(imagefiles[currentimg].path);
 
     if (ext == "mp4" || ext == "webm" || ext == "ogg") {
-         // Use this instead to that we can only load the images when
-         // they are visable on the page.
-         document.getElementById("zoomfigure").style.display = 'none';
-         document.getElementById("vid").style.display = 'inline';
-         document.getElementById("zoom-button").style.opacity = 0.3;
-     }
-     else {
-         document.getElementById("vid").style.display = 'none';
-         document.getElementById("zoomfigure").style.display = 'inline-block';
-         document.getElementById("img").style.display = 'inline';
-         document.getElementById("zoom-button").style.opacity = 1;
-     }
+        // Use this instead to that we can only load the images when
+        // they are visable on the page.
+        document.getElementById("zoomfigure").style.display = 'none';
+        document.getElementById("vid").style.display = 'inline';
+        document.getElementById("zoom-button").style.opacity = 0.3;
+    }
+    else {
+        document.getElementById("vid").style.display = 'none';
+        document.getElementById("zoomfigure").style.display = 'inline-block';
+        document.getElementById("img").style.display = 'inline';
+        document.getElementById("zoom-button").style.opacity = 1;
+    }
 
     document.getElementById("img").src = imagefiles[theimg].path;
     document.getElementById("vid").src = imagefiles[theimg].path;
     centerMiniMap();
     updateZooming();
-    togglezoombutton();
+    //togglezoombutton(); // This seemed to cause a weird bug where everytime you clicked on a new image it disabled the zoom button. The only way to make the zoom button clickable again you had to click on a new image. 
 }
 
 // Get the extension of the file.
@@ -384,7 +385,7 @@ function getFilesFromDir(filepath, callback) {
         var newfilesindir = [];
         for (var i = 0; i < filesindir.length; i++) {
             var ext = getExt(filesindir[i]);
-            if (ext == "png" || ext == "jpg" || ext  == "mp4" || ext == "webm" || ext == "ogg") {
+            if (ext == "png" || ext == "jpg" || ext == "mp4" || ext == "webm" || ext == "ogg") {
                 newfilesindir.push(filesindir[i]);
             }
         }
@@ -567,16 +568,16 @@ function hideimg(yesorno) {
 }
 
 function togglezoombutton() {
-	var ext = getExt(imagefiles[currentimg].path);
+    var ext = getExt(imagefiles[currentimg].path);
     var zoombutton = document.getElementById("zoom-button");
-	if(ext == "mp4" || ext == "webm" || ext == "ogg") {
-		zoombutton.style.opacity = 0.3;
+    if (ext == "mp4" || ext == "webm" || ext == "ogg") {
+        zoombutton.style.opacity = 0.3;
         zoombutton.setAttribute("disabled", 1);
-	}
-	else {
-		zoombutton.style.opacity = 1;
+    }
+    else {
+        zoombutton.style.opacity = 1;
         zoombutton.disabled = !zoombutton.disabled;
-	}
+    }
 }
 
 function playpause() {
