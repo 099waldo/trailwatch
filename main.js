@@ -8,7 +8,9 @@ var licenseWindow;
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 1366, height: 768 })
+    mainWindow = new BrowserWindow({ width: 1366, height: 768, webPreferences: {
+            nodeIntegration: true
+        }})
 
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
