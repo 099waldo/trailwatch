@@ -8,7 +8,7 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 
 ```bash
 # Clone this repository
-git clone https://gitlab.com/099waldo/card-reader.git
+git clone https://github.com/099waldo/trailwatch
 # Go into the repository
 cd card-reader
 # Install dependencies
